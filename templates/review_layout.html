@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>il Cortile Reviews</title>
+    <style> 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .url-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 34%;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .url-bar a {
+            padding: 10px 227px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: rgb(129, 48, 158);
+            color: #f8f7f9;
+        }
+        .review-box {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .reviewer-info {
+            font-size: 15px;
+        }
+        .reviewer-info .name {
+            font-weight: bold;
+            font-size: 17px;
+            color: #621f98;
+        }
+        .ratings {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+        .review-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-bar">
+        <form method="GET" action="/">
+            <input type="text" name="search" placeholder="Search reviews" value="{{ request.args.get('search') }}">
+        </form>
+    </div>
+
+    <div class="url-bar">
+        <form method="GET" action="/">
+            <a href="/competitor_analysis">Get Competitor Analysis</a>
+        </form>
+    </div>
+    
+
+    {% for review in reviews %}
+        <div class="review-box">
+            <div class="reviewer-info">
+                <div class="name"><strong>{{ review.name }}</strong></div><br>
+                <div class="city">{{ review.city }}</div>
+                <div class="reviews-count">{{ review.total_reviews }}</div>
+                <div class="review-date">{{ review.date }} <br><br> Rating {{ review.overall_rating|int }}</div>
+            </div>
+            <div class="ratings">
+                <span><strong>Overall {{ review.overall_rating|int }}</strong></span> &bull;
+                <span><strong>Food {{ review.food_rating|int }}</strong></span> &bull;
+                <span><strong>Service {{ review.service_rating|int }}</strong></span> &bull;
+                <span><strong>Ambience {{ review.ambience_rating|int }}</strong></span>
+            </div>
+            <div class="review-text">
+                <p>Food Review: <span style="color: rgb(16, 111, 24);">{{ review.food }}</span></p>
+                <p>Staff Review: <span style="color: rgb(137, 27, 91);">{{ review.staff }}</span></p>
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
